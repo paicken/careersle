@@ -8,25 +8,17 @@ let currentDate = dateParam || new Date().toISOString().split('T')[0];
 document.addEventListener('DOMContentLoaded', function() {
     fetchData();
     document.getElementById('submitBtn').addEventListener('click', submitGuess);
-    // $('.js-example-basic-single').select2();
-    // $.getJSON(`${website}/players.json`, function(data) {
-    //     // Access the "players" array from the JSON data
-    //     var players = data.players;
-    
-    //     // Initialize the Select2 plugin on the select element
-    //     $("#playerSelect").select2({
-    //       data: players.map(function(player) {
-    //         return { id: player, text: player };
-    //       }),
-    //       width: '300px'
-    //     });
-    //   });
+    $('#playerSelect').on('change', function() {
+        var selectedValue = $(this).val();
+        if (selectedValue === "") {
+            $('#submitBtn').prop('disabled', true);
+        } else {
+            $('#submitBtn').prop('disabled', false);
+        }
+    });
 });
 
 function fetchData() {
-    // let dateParam = new URLSearchParams(window.location.search).get('date');
-    // let currentDate = dateParam || new Date().toISOString().split('T')[0];
-
     fetch(`${website}/api/${currentDate}.json`)
         .then(response => response.json())
         .then(data => {
@@ -34,19 +26,17 @@ function fetchData() {
             populateClubs(data.clubs);
             correctPlayer = data.name;
         });
-
-    // fetch(`${website}/api/players.json`)
-    //     .then(response => response.json())
-    //     .then(data => populatePlayerSelect(data.players));
         fetch('https://careersle.piersaicken.com/api/players.json')
             .then(response => response.json())
             .then(data => {
                 $('#playerSelect').select2({
                     data: data.players.map(player => ({ id: player, text: player })),
                     placeholder: "Select a player",
-                    allowClear: true
+                    allowClear: true,
+                    minimumInputLength: 3
                 });
             });
+            $('#playerSelect').val(null).trigger('change');
 }
 
 function populateClubs(clubs) {
@@ -97,7 +87,7 @@ function updateTableWithIncorrectGuess() {
             break;
         case 2:
             for (let i = 0; i < rows.length; i++) {
-                rows[i].cells[2].innerText = careerData.appearances_and_goals[i]; // Apps (Goals)
+                rows[i].cells[2].innerHTML = `<pre class="careersle-code">${careerData.appearances_and_goals[i]}</pre>`; // Apps (Goals)
             }
             break;
         case 3:
@@ -109,49 +99,6 @@ function updateTableWithIncorrectGuess() {
     }
 }
 
-// function displayModal(isCorrect) {
-//     let modal = document.getElementById('modal');
-//     let modalContent = document.createElement('div');
-//     modalContent.classList.add('modal-content');
-//     let message, emojiSequence;
-
-//     if (isCorrect) {
-//         message = `Congratulations, you have correctly identified today's player, ${correctPlayer}!`;
-//         emojiSequence = '🟥'.repeat(guesses) + '✅'; // Red for incorrect, green for correct
-//     } else {
-//         message = `Hard luck, today's player was ${correctPlayer}`;
-//         emojiSequence = '🟥'.repeat(guesses); // All red for incorrect guesses
-//     }
-//     console.log(`guesses: ${guesses}`)
-
-//     let chars = ["🏟️", "🗓️", "🎯", "🏃", "🌍"];
-//     let strtoshare = "";
-
-//     for (let i = 0; i < 5; i++) {
-//         if (i < guesses) {
-//             strtoshare += chars[i] + ": 🟥\n";
-//         } else if (i == guesses) {
-//             strtoshare += chars[i] + ": ✅\n";
-//             // break;
-//         } else {
-//             strtoshare += chars[i] + ": -\n";
-//         }
-//     }
-
-//     modalContent.innerHTML = `<p>${message}</p>`;
-
-//     let shareText = `Careersle ${currentDate}:\n${strtoshare}${website}/?date=${currentDate}`;
-    
-//     let shareButton = document.createElement('button');
-//     shareButton.innerText = 'Share';
-//     shareButton.addEventListener('click', () => navigator.clipboard.writeText(shareText));
-
-//     modalContent.appendChild(shareButton);
-//     modal.appendChild(modalContent);
-//     modal.style.display = 'block';
-// }
-
-
 function displayModal(isCorrect) {
     let modal = document.getElementById('modal');
     let modalContent = document.createElement('div');
@@ -159,10 +106,10 @@ function displayModal(isCorrect) {
     let message, emojiSequence;
 
     if (isCorrect) {
-        message = `Congratulations, you have correctly identified today's player, ${correctPlayer}!`;
+        message = `Congratulations, you have correctly identified today's player, <b>${correctPlayer}</b>!`;
         emojiSequence = '🟥'.repeat(guesses) + '✅'; // Red for incorrect, green for correct
     } else {
-        message = `Hard luck, today's player was ${correctPlayer}`;
+        message = `Hard luck, today's player was <b>${correctPlayer}</b>`;
         emojiSequence = '🟥'.repeat(guesses); // All red for incorrect guesses
     }
     console.log(`guesses: ${guesses}`)
@@ -188,9 +135,6 @@ function displayModal(isCorrect) {
     shareButton.innerText = 'Share';
     shareButton.addEventListener('click', () => {
         navigator.clipboard.writeText(shareText).then(() => {
-            // Close the modal
-            // modal.style.display = 'none';
-            // Show toast message
             showToast("Copied to clipboard");
         });
     });
