@@ -1,0 +1,32 @@
+{
+  "name": "David Beckham",
+  "nationality": "England",
+  "position": "Right Midfield",
+  "clubs": [
+    "Man Utd",
+    "\u2192 Preston (loan)",
+    "Real Madrid",
+    "Los Angeles",
+    "\u2192 AC Milan (loan)",
+    "\u2192 AC Milan (loan)",
+    "Paris SG"
+  ],
+  "years": [
+    "1993-2003",
+    "1995",
+    "2003-2007",
+    "2007-2013",
+    "2009",
+    "2010",
+    "2013"
+  ],
+  "appearances_and_goals": [
+    "265* (62)*",
+    "   0   (0)",
+    " 116  (13)",
+    "  98  (18)",
+    "  18   (2)",
+    "  11   (0)",
+    "  10   (0)"
+  ]
+}

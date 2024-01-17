@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Careersle - piersaicken.com</title>
+    <link rel="shortcut icon" href="https://piersaicken.com/static/images/pafavicon.ico">
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://piersaicken.com/static/css/mulish-font.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://piersaicken.com/static/css/style.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
+<body>
+  <div class="navbar">
+    <input type="checkbox" id="nav-toggle" class="nav-toggle">
+    <div class="page-title"><a class="active navbar-home-link" href="https://piersaicken.com/">Piers Aicken</a></div>
+    <a href="https://piersaicken.com/misc.html" class="navbar-link">Misc</a>
+    <a href="https://piersaicken.com/about.html" class="navbar-link">About</a>
+    <a href="https://blog.piersaicken.com/" class="navbar-link">Blog</a>
+    <label for="nav-toggle" class="icon">&#9776;</label>
+  </div>
+  <div class="container">
+    <div class="post-heading">
+      <h1 class="article-title">Careersle<sup>BETA</sup></h1>
+    </div>
+    <table id="careerTable">
+        <thead>
+            <tr>
+                <th>Years</th>
+                <th>Clubs</th>
+                <th>Apps (Goals)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Table data will be populated here -->
+        </tbody>
+    </table>
+    <div>
+        <label>Position: <span id="position"></span></label>
+    </div>
+    <div>
+        <label>Nationality: <span id="nationality"></span></label>
+    </div>
+    <div class="sticky-footer">
+        <!-- <select id="playerSelect" class="js-example-basic-single"></select> -->
+        <select id="playerSelect" style="width: 50%;"></select>
+        <button id="submitBtn">Submit</button>
+    </div>
+    <div id="modal" class="modal">
+        <!-- Modal content will be populated here -->
+    </div>
+    <script src="script.js"></script>
+  </div>
+  <div class ="footer-div">
+    &copy; 2023-2024 Piers Aicken - <a href="https://piersaicken.com/contact.html">Contact Me</a>
+  </div>
+</body>
+</html>

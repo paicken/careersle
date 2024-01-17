@@ -1,0 +1,76 @@
+/* body {
+    font-family: Arial, sans-serif;
+} */
+
+h1 sup {
+    font-size: x-small;
+}
+
+nav {
+    background: #ddd;
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+}
+
+table {
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+
+table, td {
+    border: 1px solid black;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+table, th {
+    border: 1px solid black;
+    font-family: 'Mulish';
+}
+
+table td:nth-child(3) { text-align: end; }
+
+.sticky-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    padding-bottom: 40px;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+}
+
+.toast-message {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+.careersle-pre {
+    color: #000;
+    background-color: #ffffff;
+}
