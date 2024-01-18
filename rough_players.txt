@@ -1,11 +1,9 @@
-beckham
+bnckham
 keane
 van nistelrooy
-van persie
 owen
 fowler
 carragher
-ferninand
 ronaldinho
 messi
 cr7
@@ -21,7 +19,6 @@ de gea
 onana
 halaand
 de bruyne
-salah
 lampard
 terry
 drogba
@@ -70,16 +67,12 @@ ashley young
 jonny evans
 pickford
 luis diaz
-sterling
-reece james
 gabriel jesus
 rice
 diego costa
 hulk
-pogba
 david healy
 keith gillespie
-Robert Snodgrass
 dion dublin
 gary lineker
 alan shearer

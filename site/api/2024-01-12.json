@@ -1,0 +1,32 @@
+{
+  "name": "Matthew Taylor",
+  "nationality": "England",
+  "position": "Left Midfield",
+  "clubs": [
+    "Luton",
+    "Portsmouth",
+    "Bolton",
+    "West Ham",
+    "Burnley",
+    "Northampton",
+    "Swindon Town"
+  ],
+  "years": [
+    "1999-2002",
+    "2002-2008",
+    "2008-2011",
+    "2011-2014",
+    "2014-2016",
+    "2016-2017",
+    "2017-2019"
+  ],
+  "appearances_and_goals": [
+    " *86   (5)",
+    " 179  (23)",
+    " 122  (23)",
+    "  76   (2)",
+    "  37   (4)",
+    "  44   (7)",
+    "  71   (9)"
+  ]
+}
