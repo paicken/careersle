@@ -202,6 +202,52 @@ table td {
     transform: scale(0.98);
 }
 
+#skipBtn {
+    background-color: #0642b1; /* Green background */
+    border: none;             /* No border */
+    color: white;             /* White text */
+    padding: 5px 15px;       /* Padding for size */
+    text-align: center;       /* Centered text */
+    text-decoration: none;    /* No underline on text */
+    display: inline-block;    /* Inline-block display */
+    font-size: 16px;          /* Font size */
+    margin: 4px 2px;          /* Margin for spacing */
+    cursor: pointer;          /* Pointer cursor on hover */
+    border-radius: 8px;       /* Rounded corners */
+}
+
+#skipBtn:hover {
+    background-color: #053692; /* Green background */
+}
+
+#skipBtn:active {
+    background-color: #03225b; /* Green background */
+    transform: scale(0.98);
+}
+
+#modalCloseBtn {
+    background-color: #828282; /* Green background */
+    border: none;             /* No border */
+    color: white;             /* White text */
+    padding: 5px 15px;       /* Padding for size */
+    text-align: center;       /* Centered text */
+    text-decoration: none;    /* No underline on text */
+    display: inline-block;    /* Inline-block display */
+    font-size: 16px;          /* Font size */
+    margin: 4px 2px;          /* Margin for spacing */
+    cursor: pointer;          /* Pointer cursor on hover */
+    border-radius: 8px;       /* Rounded corners */
+}
+
+#modalCloseBtn:hover {
+    background-color: #626262; /* Green background */
+}
+
+#modalCloseBtn:active {
+    background-color: #474747; /* Green background */
+    transform: scale(0.98);
+}
+
 #submitBtn:disabled {
     background-color: grey;  /* Grey background for disabled state */
     cursor: not-allowed;     /* Cursor to indicate the button is not clickable */

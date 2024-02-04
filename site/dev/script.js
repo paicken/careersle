@@ -8,6 +8,7 @@ let currentDate = dateParam || new Date().toISOString().split('T')[0];
 document.addEventListener('DOMContentLoaded', function() {
     fetchData();
     document.getElementById('submitBtn').addEventListener('click', submitGuess);
+    document.getElementById('skipBtn').addEventListener('click', skipGuess);
     $('#playerSelect').on('change', function() {
         var selectedValue = $(this).val();
         if (selectedValue === "") {
@@ -73,7 +74,7 @@ function submitGuess() {
         displayModal(true);
     } else {
         guesses++;
-        updateTableWithIncorrectGuess();
+        updateTableWithIncorrectGuess(selectedPlayer);
         if (guesses === 5) { // Assuming 4 steps: years, apps/goals, position, nationality
             displayModal(false);
         }
@@ -103,10 +104,21 @@ function populateNationality() {
     document.getElementById('nationality').innerText = careerData.nationality;
 }
 
-function updateTableWithIncorrectGuess() {
+function skipGuess() {
+    $('#playerSelect').val(null).trigger('change');
+    submitGuess();
+}
+
+function updateTableWithIncorrectGuess(selectedPlayer) {
     let tableBody = document.getElementById('careerTable').getElementsByTagName('tbody')[0];
     let rows = tableBody.rows;
     let selectElement = document.getElementById("playerSelect");
+    if (selectedPlayer != "") {
+        toast_text = "Sorry, try again"
+    }
+    else {
+        toast_text = "Revealing more details"
+    }
 
     switch (guesses) {
         case 1:
@@ -114,24 +126,24 @@ function updateTableWithIncorrectGuess() {
                 fadeInElement(rows[i].cells[0].getElementsByClassName('invisible-element')[0])
             }
             $('#playerSelect').val(null).trigger('change');
-            showToast('Sorry, try again')
+            showToast(toast_text)
             break;
         case 2:
             for (let i = 0; i < rows.length; i++) {
                 fadeInElement(rows[i].cells[2].getElementsByClassName('invisible-element')[0])
             }
             $('#playerSelect').val(null).trigger('change');
-            showToast('Sorry, try again')
+            showToast(toast_text)
             break;
         case 3:
             fadeInElement(document.getElementById('position'));
             $('#playerSelect').val(null).trigger('change');
-            showToast('Sorry, try again')
+            showToast(toast_text)
             break;
         case 4:
             fadeInElement(document.getElementById('nationality'));
             $('#playerSelect').val(null).trigger('change');
-            showToast('Sorry, try again')
+            showToast(toast_text)
             break;
     }
 }
@@ -164,7 +176,7 @@ function updateTableWithCorrectGuess() {
                 markElementGreen(allPres[i]);
             }
             for (let i = 0; i < rows.length; i++) {
-                fadeInElement(rows[i].cells[2])
+                fadeInElement(rows[i].cells[2].getElementsByClassName('invisible-element')[0])
             }
             markElementGreen(document.getElementById('position'))
             fadeInElement(document.getElementById('position'));
@@ -189,6 +201,7 @@ function updateTableWithCorrectGuess() {
 
 function displayModal(isCorrect) {
     let modal = document.getElementById('modal');
+    modal.innerHTML = "";
     let modalContent = document.createElement('div');
     modalContent.classList.add('modal-content');
     let message, emojiSequence;
@@ -207,15 +220,19 @@ function displayModal(isCorrect) {
 
     for (let i = 0; i < 5; i++) {
         if (i < guesses) {
-            strtoshare += chars[i] + ": 🟥\n";
+            strtoshare += "🟥";
         } else if (i == guesses) {
-            strtoshare += chars[i] + ": ✅\n";
-        } else {
-            strtoshare += chars[i] + ": -\n";
+            strtoshare += "✅";
         }
     }
 
-    let shareText = `Careersle ${currentDate}:\n${strtoshare}${website}/?date=${currentDate}`;
+    if (dateParam) {
+        dateAppend = `/?date=${currentDate}`
+    }
+    else {
+        dateAppend = ""
+    }
+    let shareText = `Careersle ${currentDate}:\n${emojiSequence}\n${website}${dateAppend}`;
     
     modalContent.innerHTML = `<p>${message}<br><pre class="careersle-pre">${shareText}</pre></p>`;
 
@@ -227,7 +244,48 @@ function displayModal(isCorrect) {
         });
     });
 
+    let closeButton = document.createElement('button');
+    closeButton.innerText = 'Close';
+    closeButton.classList.add('modalCloseBtn');
+    closeButton.style.margin = '10px';
+    closeButton.addEventListener('click', () => {
+        modal.style.display ='none';
+        modal.innerHTML = '';
+    });
+
     modalContent.appendChild(shareButton);
+    modalContent.appendChild(closeButton);
+    modal.appendChild(modalContent);
+    modal.style.display = 'block';
+}
+
+function showHowToPlay() {
+    let modal = document.getElementById('modal');
+    modal.innerHTML = "";
+    let modalContent = document.createElement('div');
+    modalContent.classList.add('modal-content');
+    howToPlayText = '<h4>How to play Careersle</h4>' +
+    '<p>Careersle is a Wordle-inspired game where the aim is to guess the football player based on their career</p>' +
+    '<p>Try to identify the player from the clubs they\'ve played for and select' + 
+    ' your guess from the player list provided.</p>' +
+    '<p>Every incorrect guess reveals more information about the player - when they played for those clubs,' +
+    ' how many appearances they made and how many goals they scored (a \'*\' indicates there may be missing data for that period), their general position, then their nationality.</p>' +
+    '<p>If you either correctly identify the player or guess incorrectly 5 times, a box will pop up with the ' +
+    'answer, your result, and the ability to share the game</p>' +
+    '<p>Feedback is welcome, especially on how I can improve the game - ' +
+    'just use the link at the bottom of the screen, and I hope you enjoy!</p>'
+    
+    modalContent.innerHTML = `${howToPlayText}`;
+
+    let closeButton = document.createElement('button');
+    closeButton.innerText = 'Close';
+    closeButton.classList.add('modalCloseBtn');
+    closeButton.addEventListener('click', () => {
+        modal.style.display ='none';
+        modal.innerHTML = '';
+    });
+
+    modalContent.appendChild(closeButton);
     modal.appendChild(modalContent);
     modal.style.display = 'block';
 }
