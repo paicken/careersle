@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
     fetchData();
     document.getElementById('submitBtn').addEventListener('click', submitGuess);
     document.getElementById('skipBtn').addEventListener('click', skipGuess);
+    document.getElementById('startBtn').addEventListener('click', startGame);
     $('#playerSelect').on('change', function() {
         var selectedValue = $(this).val();
         if (selectedValue === "") {
@@ -25,6 +26,7 @@ function fetchData() {
         .then(data => {
             careerData = data;
             populateClubs(data.clubs);
+            console.log('populating');
             populateYears();
             populateApps();
             populatePosition();
@@ -55,6 +57,18 @@ function populateClubs(clubs) {
     });
 }
 
+function populateClubs2(clubs) {
+    let tableBody = document.getElementById('careerTable').getElementsByTagName('tbody')[0];
+    tableBody.innerHTML = ''; // Clear existing rows
+    clubs.forEach(club => {
+        replaced_string = club.replace(/./g, 'x')
+        let row = tableBody.insertRow();
+        row.insertCell().innerText = ''; // Years
+        row.insertCell().innerHTML = `<span class="invisible-element">${club.replace(/[a-zA-Z()]/g, 'x')}</span>`; // Clubs
+        row.insertCell().innerText = ''; // Apps (Goals)
+    });
+}
+
 function populatePlayerSelect(players) {
     let select = document.getElementById('playerSelect');
     select.innerHTML = ''; // Clear existing options
@@ -64,6 +78,14 @@ function populatePlayerSelect(players) {
         option.text = player;
         select.appendChild(option);
     });
+}
+
+function startGame() {
+    document.getElementById('careerTable').style.display = 'table'; 
+    document.getElementById('player-position').style.display = 'block'; 
+    document.getElementById('player-nationality').style.display = 'block'; 
+    document.getElementById('selection-footer').style.display = 'block'; 
+    document.getElementById('start-button-div').style.display = 'none'; 
 }
 
 function submitGuess() {
@@ -85,10 +107,24 @@ function populateYears() {
     let tableBody = document.getElementById('careerTable').getElementsByTagName('tbody')[0];
     let rows = tableBody.rows;
     for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[0].innerHTML = `<span class="invisible-element">${careerData.years[i].replace(/[0-9]/g, '0')}</span>`; // Years
+    }
+}
+function populateYearsActual() {
+    let tableBody = document.getElementById('careerTable').getElementsByTagName('tbody')[0];
+    let rows = tableBody.rows;
+    for (let i = 0; i < rows.length; i++) {
         rows[i].cells[0].innerHTML = `<span class="invisible-element">${careerData.years[i]}</span>`; // Years
     }
 }
 function populateApps() {
+    let tableBody = document.getElementById('careerTable').getElementsByTagName('tbody')[0];
+    let rows = tableBody.rows;
+    for (let i = 0; i < rows.length; i++) {
+        rows[i].cells[2].innerHTML = `<pre class="careersle-code black-text invisible-element">${careerData.appearances_and_goals[i].replace(/./g, ' ')}</pre>`; // Apps (Goals)
+    }
+}
+function populateAppsActual() {
     let tableBody = document.getElementById('careerTable').getElementsByTagName('tbody')[0];
     let rows = tableBody.rows;
     for (let i = 0; i < rows.length; i++) {
@@ -122,6 +158,7 @@ function updateTableWithIncorrectGuess(selectedPlayer) {
 
     switch (guesses) {
         case 1:
+            populateYearsActual();
             for (let i = 0; i < rows.length; i++) {
                 fadeInElement(rows[i].cells[0].getElementsByClassName('invisible-element')[0])
             }
@@ -129,6 +166,7 @@ function updateTableWithIncorrectGuess(selectedPlayer) {
             showToast(toast_text)
             break;
         case 2:
+            populateAppsActual();
             for (let i = 0; i < rows.length; i++) {
                 fadeInElement(rows[i].cells[2].getElementsByClassName('invisible-element')[0])
             }
@@ -232,7 +270,7 @@ function displayModal(isCorrect) {
     else {
         dateAppend = ""
     }
-    let shareText = `Careersle ${currentDate}:\n${emojiSequence}\n${website}${dateAppend}`;
+    let shareText = `Careersle ${currentDate}:\n${emojiSequence}\n${website}${dateAppend}\nSkips: 0, Time: 1m16s`;
     
     modalContent.innerHTML = `<p>${message}<br><pre class="careersle-pre">${shareText}</pre></p>`;
 
@@ -332,3 +370,37 @@ function markElementGreen(element) {
     element.classList.remove('black-text');
     element.classList.add('green-text');
 }
+
+function setCookie(cname, cvalue) {
+    const d = new Date();
+    d.setTime(d.getTime() + (182 * 24 * 60 * 60 * 1000));
+    let expires = "expires="+d.toUTCString();
+    document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+  }
+  
+  function getCookie(cname) {
+    let name = cname + "=";
+    let ca = document.cookie.split(';');
+    for(let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) == ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) == 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return "";
+  }
+  
+  function checkCookie() {
+    let user = getCookie("username");
+    if (user != "") {
+      alert("Welcome again " + user);
+    } else {
+      user = prompt("Please enter your name:", "");
+      if (user != "" && user != null) {
+        setCookie("username", user, 365);
+      }
+    }
+  }

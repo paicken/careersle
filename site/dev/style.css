@@ -225,6 +225,29 @@ table td {
     transform: scale(0.98);
 }
 
+#startBtn {
+    background-color: #056525; /* Green background */
+    border: none;             /* No border */
+    color: white;             /* White text */
+    padding: 5px 15px;       /* Padding for size */
+    text-align: center;       /* Centered text */
+    text-decoration: none;    /* No underline on text */
+    display: inline-block;    /* Inline-block display */
+    font-size: 24px;          /* Font size */
+    margin: 16px 2px;          /* Margin for spacing */
+    cursor: pointer;          /* Pointer cursor on hover */
+    border-radius: 8px;       /* Rounded corners */
+}
+
+#startBtn:hover {
+    background-color: #055921; /* Green background */
+}
+
+#startBtn:active {
+    background-color: #044218; /* Green background */
+    transform: scale(0.98);
+}
+
 #modalCloseBtn {
     background-color: #828282; /* Green background */
     border: none;             /* No border */

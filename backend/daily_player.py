@@ -8,8 +8,9 @@ from time import sleep
 from playerdetailsscrape import Player, scrape_player_details
 
 def log_write(string_to_write):
+    return
     with open('/home/ubuntu/json_gen/log.txt', 'a') as log_file:
-        log_file.write(f"{datetime.now()}: {string_to_write}")
+        log_file.write(f"{datetime.now()}: {string_to_write}\n")
 
 def newer_than_180_days(date_str):
     if date_str is None:
@@ -31,13 +32,14 @@ def chosen_date_string(is_today: bool = False) -> str:
 def generate_player_json(is_today: bool = False, run_now: bool = False):
     if not run_now:
         min_sleep = 10
-        max_sleep = 58 * 60
+        max_sleep = 44 * 60
         random_sleep_duration = random.randint(min_sleep, max_sleep)
         print(f"Sleeping {random_sleep_duration} seconds ({random_sleep_duration/60} minutes)")
         sleep(random_sleep_duration)
     else:
         print("skipping sleep")
 
+    # players_track_file_path = '/home/ubuntu/careersle_backend/players_tracker.json'
     players_track_file_path = 'players_tracker.json'
     with open(players_track_file_path, 'r') as players_track_file:
         players_track_dict = json.load(players_track_file)
@@ -63,7 +65,9 @@ def generate_player_json(is_today: bool = False, run_now: bool = False):
 
             player_details = scrape_player_details(player_meta['url'])
 
-            with open(f'/var/www/piersaicken.com/html/careersle/api/{chosen_date}.json', 'w') as daily_json:
+            # output_file = f'/var/www/piersaicken.com/html/careersle/api/{chosen_date}.json'
+            output_file = f'../site/api/{chosen_date}.json'
+            with open(output_file, 'w') as daily_json:
                 json.dump(player_details.info_dict(), daily_json, indent=2)
 
             players_track_dict[random_player_id]['last_featured'] = chosen_date

@@ -18,6 +18,8 @@ headers = {
 
 NO_GOALS_APPEARANCES = "0"
 
+class PlayerRequirementsNotMet(Exception):
+    pass
 
 class Transfer:
     date = None

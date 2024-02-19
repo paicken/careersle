@@ -1,4 +1,4 @@
-domestic_leagues = {
+DOMESTIC_LEAGUES = {
     "510": True,
     "511": True,
     "A1": True,
@@ -419,7 +419,7 @@ domestic_leagues = {
     "ZYP1": True
 }
 
-top_five_leagues = [
+TOP_FIVE_LEAGUES = [
     "ES1",
     "FR1",
     "GB1",
@@ -427,19 +427,19 @@ top_five_leagues = [
     "L1"
 ]
 
-contracts_to_delete = [
+CONTRACTS_TO_DELETE = [
     "BAN",
     "WITHOUT CLUB",
     "UNKNOWN",
     "CAREER BREAK"
 ]
 
-contracts_to_delete_regex = [
+CONTRACTS_TO_DELETE_REGEX = [
     "Youth",
     "Yth",
     r"U[0-9]{2}"
 ]
 
-ignore_stated_youth_clubs = {
+IGNORE_STATED_YOUTH_CLUBS = {
     "342229": "Kylian Mbappe"
 }

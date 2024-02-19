@@ -27,7 +27,7 @@
       <h1 class="article-title">Careersle<sup>ALPHA</sup></h1>
     </div>
     <center><a href="#" style="font-size: smaller;" onclick="showHowToPlay()">How to play</a></center>
-    <table id="careerTable">
+    <table id="careerTable" style="display: none;">
         <thead>
             <tr>
                 <th>Years</th>
@@ -39,17 +39,20 @@
             <!-- Table data will be populated here -->
         </tbody>
     </table>
-    <div>
+    <div id="player-position" style="display: none;">
         <label><b>Position:</b> <span id="position"></span></label>
     </div>
-    <div>
+    <div id="player-nationality" style="display: none;">
         <label><b>Nationality:</b> <span id="nationality"></span></label>
     </div>
-    <div class="sticky-footer">
+    <div class="sticky-footer" id="selection-footer" style="display: none;">
         <!-- <select id="playerSelect" class="js-example-basic-single"></select> -->
         <select id="playerSelect" style="width: 50%;"></select>
         <button id="submitBtn" disabled>Submit</button>
         <button id="skipBtn">Skip</button>
+    </div>
+    <div class="sticky-footer" id="start-button-div" style="text-align: center;">
+        <button id="startBtn">Start</button>
     </div>
     <div id="modal" class="modal">
         <!-- Modal content will be populated here -->

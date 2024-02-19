@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Run Daily Payer",
+            "type": "python",
+            "request": "launch",
+            "program": "backend/daily_player.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["-t", "-n"]
+        },
+        {
             "name": "Add player",
             "type": "python",
             "request": "launch",

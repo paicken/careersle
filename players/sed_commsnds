@@ -1,0 +1,3 @@
+sed -i 's/^[0-9]*,//' <player_file>
+sed -i 's/^/"/' <player_file>
+sed -i 's/$/",/' <player_file>
